@@ -72,7 +72,7 @@ def process_line(line):
 		return ( label, [ [np.uint32(i) for i in v.split('/')] for v in fields[1:] ] )
 
 	else:
-		print('(E) Unknown line: {}'.format(fields))
+		#print('(E) Unknown line: {}'.format(fields))
 		return None
 
 	return (label, [float(token) for token in fields[1:]])

@@ -53,8 +53,8 @@ class ExeterScene(Scene):
         self.sphere = DrawModelFromMesh(scene=self, M=poseMatrix(), mesh=Sphere(), shader=EnvironmentShader(map=self.environment))
         #self.sphere = DrawModelFromMesh(scene=self, M=poseMatrix(), mesh=Sphere(), shader=FlatShader())
 
-        bunny = load_obj_file('models/bunny.obj')
-        self.bunny = DrawModelFromMesh(scene=self, M=np.matmul(translationMatrix([0,0,0]), scaleMatrix([0.5,0.5,0.5])), mesh=bunny[0], shader=EnvironmentShader(map=self.environment))
+        lily = load_obj_file('models/lily.obj')
+        self.lily = DrawModelFromMesh(scene=self, M=np.matmul(translationMatrix([0,0,0]), scaleMatrix([0.5,0.5,0.5])), mesh=lily[0], shader=EnvironmentShader(map=self.environment))
 
         # environment box for reflections
         #self.envbox = EnvironmentBox(scene=self)
@@ -122,7 +122,7 @@ class ExeterScene(Scene):
 
             self.environment.update(self)
 
-            self.bunny.draw()
+            self.lily.draw()
             #self.sphere.draw()
             #glDisable(GL_BLEND)
 
@@ -184,23 +184,23 @@ class ExeterScene(Scene):
 
         if event.key == pygame.K_1:
             print('--> using Flat shading')
-            self.bunny.use_textures = True
-            self.bunny.bind_shader('flat')
+            self.lily.use_textures = True
+            self.lily.bind_shader('flat')
 
         if event.key == pygame.K_2:
             print('--> using Phong shading')
-            self.bunny.use_textures = True
-            self.bunny.bind_shader('phong')
+            self.lily.use_textures = True
+            self.lily.bind_shader('phong')
 
         elif event.key == pygame.K_4:
             print('--> using original texture')
-            self.bunny.shader.mode = 1
+            self.lily.shader.mode = 1
 
         elif event.key == pygame.K_6:
-            self.bunny.mesh.material.alpha += 0.1
-            print('--> bunny alpha={}'.format(self.bunny.mesh.material.alpha))
-            if self.bunny.mesh.material.alpha > 1.0:
-                self.bunny.mesh.material.alpha = 0.0
+            self.lily.mesh.material.alpha += 0.1
+            print('--> lily alpha={}'.format(self.lily.mesh.material.alpha))
+            if self.lily.mesh.material.alpha > 1.0:
+                self.lily.mesh.material.alpha = 0.0
 
         elif event.key == pygame.K_7:
             print('--> no face culling')

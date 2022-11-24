@@ -37,8 +37,8 @@ class ExeterScene(Scene):
             [DrawModelFromMesh(scene=self, M=np.matmul(translationMatrix([0,-1,0]),scaleMatrix([0.5,0.5,0.5])), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='scene') for mesh in meshes]
         )
 
-        table = load_obj_file('models/quad_table.obj')
-        self.table = [DrawModelFromMesh(scene=self, M=translationMatrix([0, -4, +0]), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='table') for mesh in table]
+        palm = load_obj_file('models/palm.obj')
+        self.palm = [DrawModelFromMesh(scene=self, M=translationMatrix([0, -4, +0]), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='palm') for mesh in palm]
 
         box = load_obj_file('models/fluid_border.obj')
         self.box = [DrawModelFromMesh(scene=self, M=translationMatrix([0,0,0]), mesh=mesh, shader=self.shaders, name='box') for mesh in box]
@@ -70,8 +70,8 @@ class ExeterScene(Scene):
         # first we need to clear the scene, we also clear the depth buffer to handle occlusions
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
-        # also all models from the table
-        for model in self.table:
+        # also all models from the palm
+        for model in self.palm:
             model.draw()
 
         # and for the box
@@ -84,8 +84,8 @@ class ExeterScene(Scene):
         for model in self.models:
             model.draw()
 
-        # also all models from the table
-        for model in self.table:
+        # also all models from the palm
+        for model in self.palm:
             model.draw()
 
         # and for the box
@@ -138,8 +138,8 @@ class ExeterScene(Scene):
         for model in self.models:
             model.draw()
 
-        # also all models from the table
-        for model in self.table:
+        # also all models from the palm
+        for model in self.palm:
             model.draw()
 
         # and for the box

@@ -32,14 +32,21 @@ class ExeterScene(Scene):
         self.shadows = ShadowMap(light=self.light)
         self.show_shadow_map = ShowTexture(self, self.shadows)
 
-        meshes = load_obj_file('models/scene.obj')
-        self.add_models_list(
-            [DrawModelFromMesh(scene=self, M=np.matmul(translationMatrix([0,-1,0]),scaleMatrix([0.5,0.5,0.5])), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='scene') for mesh in meshes]
-        )
+        #meshes = load_obj_file('models/scene.obj')
+        #self.add_models_list(
+        #    [DrawModelFromMesh(scene=self, M=np.matmul(translationMatrix([0,-1,0]),scaleMatrix([0.5,0.5,0.5])), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='scene') for mesh in meshes]
+        #)
 
-        palm = load_obj_file('models/palm.obj')
-        self.palm = [DrawModelFromMesh(scene=self, M=translationMatrix([0, -4, +0]), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='palm') for mesh in palm]
+        #palm random generation 
 
+        self.palms = []
+
+        for counter in range(3):
+            palm = load_obj_file('models/palm.obj')
+            palm = [DrawModelFromMesh(scene=self, M=translationMatrix([counter, -4, counter]), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='palm') for mesh in palm]
+            self.palms.append(palm)
+
+        
         box = load_obj_file('models/fluid_border.obj')
         self.box = [DrawModelFromMesh(scene=self, M=translationMatrix([0,0,0]), mesh=mesh, shader=self.shaders, name='box') for mesh in box]
 
@@ -71,8 +78,9 @@ class ExeterScene(Scene):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
         # also all models from the palm
-        for model in self.palm:
-            model.draw()
+        for palm in self.palms:
+            for model in palm:
+                model.draw()
 
         # and for the box
         for model in self.box:
@@ -85,8 +93,9 @@ class ExeterScene(Scene):
             model.draw()
 
         # also all models from the palm
-        for model in self.palm:
-            model.draw()
+        for palm in self.palms:
+            for model in palm:
+                model.draw()
 
         # and for the box
         for model in self.box:
@@ -139,8 +148,9 @@ class ExeterScene(Scene):
             model.draw()
 
         # also all models from the palm
-        for model in self.palm:
-            model.draw()
+        for palm in self.palms:
+            for model in palm:
+                model.draw()
 
         # and for the box
         for model in self.box:

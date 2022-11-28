@@ -47,8 +47,8 @@ class ExeterScene(Scene):
             self.palms.append(palm)
 
         
-        box = load_obj_file('models/fluid_border.obj')
-        self.box = [DrawModelFromMesh(scene=self, M=translationMatrix([0,0,0]), mesh=mesh, shader=self.shaders, name='box') for mesh in box]
+        tiger = load_obj_file('models/tiger.obj')
+        self.tiger = [DrawModelFromMesh(scene=self, M=translationMatrix([0,0,0]), mesh=mesh, shader=self.shaders, name='tiger') for mesh in tiger]
 
         # draw a skybox for the horizon
         self.skybox = SkyBox(scene=self)
@@ -61,7 +61,7 @@ class ExeterScene(Scene):
         #self.sphere = DrawModelFromMesh(scene=self, M=poseMatrix(), mesh=Sphere(), shader=FlatShader())
 
         elephant = load_obj_file('models/elephant.obj')
-        self.elephant = DrawModelFromMesh(scene=self, M=np.matmul(translationMatrix([0,0,0]), scaleMatrix([0.5,0.5,0.5])), mesh=elephant[0], shader=FlatShader())
+        self.elephant = DrawModelFromMesh(scene=self, M=np.matmul(translationMatrix([0,-4,0]), scaleMatrix([0.5,0.5,0.5])), mesh=elephant[0], shader=FlatShader())
 
         # environment box for reflections
         #self.envbox = EnvironmentBox(scene=self)
@@ -83,7 +83,7 @@ class ExeterScene(Scene):
                 model.draw()
 
         # and for the box
-        for model in self.box:
+        for model in self.tiger:
             model.draw()
 
     def draw_reflections(self):
@@ -98,7 +98,7 @@ class ExeterScene(Scene):
                 model.draw()
 
         # and for the box
-        for model in self.box:
+        for model in self.tiger:
             model.draw()
 
 
@@ -153,7 +153,7 @@ class ExeterScene(Scene):
                 model.draw()
 
         # and for the box
-        for model in self.box:
+        for model in self.tiger:
             model.draw()
 
         self.show_light.draw()

@@ -47,8 +47,8 @@ class ExeterScene(Scene):
             self.palms.append(palm)
 
         
-        tiger = load_obj_file('models/tiger.obj')
-        self.tiger = [DrawModelFromMesh(scene=self, M=translationMatrix([0,0,0]), mesh=mesh, shader=self.shaders, name='tiger') for mesh in tiger]
+        tiger = load_obj_file('models/tiger.obj') #good just rotate in a lil
+        self.tiger = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[-3,-6.85,0], scale=0.35), mesh=mesh, shader=self.shaders, name='tiger') for mesh in tiger]
 
         floor = load_obj_file('models/floor.obj')
         self.floor = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=floor[0], shader=self.shaders, name='floor') 
@@ -65,7 +65,7 @@ class ExeterScene(Scene):
         #self.sphere = DrawModelFromMesh(scene=self, M=poseMatrix(), mesh=Sphere(), shader=FlatShader())
 
         elephant = load_obj_file('models/elephant.obj')
-        self.elephant = DrawModelFromMesh(scene=self, M=np.matmul(translationMatrix([0,-4,0]), scaleMatrix([0.5,0.5,0.5])), mesh=elephant[0], shader=FlatShader())
+        self.elephant = DrawModelFromMesh(scene=self, M=poseMatrix(position=[2.5,-6,0], scale=0.35), mesh=elephant[0], shader=FlatShader())
 
         # environment box for reflections
         #self.envbox = EnvironmentBox(scene=self)

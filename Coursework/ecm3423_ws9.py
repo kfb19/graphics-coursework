@@ -50,6 +50,10 @@ class ExeterScene(Scene):
         tiger = load_obj_file('models/tiger.obj')
         self.tiger = [DrawModelFromMesh(scene=self, M=translationMatrix([0,0,0]), mesh=mesh, shader=self.shaders, name='tiger') for mesh in tiger]
 
+        floor = load_obj_file('models/floor.obj')
+        self.floor = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=floor[0], shader=self.shaders, name='floor') 
+
+
         # draw a skybox for the horizon
         self.skybox = SkyBox(scene=self)
 
@@ -86,6 +90,8 @@ class ExeterScene(Scene):
         for model in self.tiger:
             model.draw()
 
+        model.draw()
+
     def draw_reflections(self):
         self.skybox.draw()
 
@@ -100,6 +106,8 @@ class ExeterScene(Scene):
         # and for the box
         for model in self.tiger:
             model.draw()
+
+        model.draw()
 
 
     def draw(self, framebuffer=False):
@@ -132,6 +140,8 @@ class ExeterScene(Scene):
             self.environment.update(self)
 
             self.elephant.draw()
+
+            self.floor.draw()
             #self.sphere.draw()
             #glDisable(GL_BLEND)
 

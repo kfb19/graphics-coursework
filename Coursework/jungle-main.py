@@ -43,7 +43,7 @@ class ExeterScene(Scene):
 
         for counter in range(3):
             bamboo = load_obj_file('models/bamboo.obj')
-            bamboo = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[(-4+counter), -7, counter], scale=0.01), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='bamboo') for mesh in bamboo]
+            bamboo = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[(counter-4), -7, -4], scale=0.01), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='bamboo') for mesh in bamboo]
             self.bamboos.append(bamboo)
 
         
@@ -52,6 +52,8 @@ class ExeterScene(Scene):
 
         floor = load_obj_file('models/floor.obj')
         self.floor = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=floor[0], shader=self.shaders, name='floor') 
+        pool = load_obj_file('models/pool.obj')
+        self.pool = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=pool[0], shader=self.shaders, name='pool') 
 
 
         # draw a skybox for the horizon
@@ -142,6 +144,7 @@ class ExeterScene(Scene):
             self.elephant.draw()
 
             self.floor.draw()
+            self.pool.draw()
             #self.sphere.draw()
             #glDisable(GL_BLEND)
 

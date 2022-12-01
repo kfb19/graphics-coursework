@@ -1,0 +1,42 @@
+# Blender 3.3.1 MTL File: 'None'
+# www.blender.org
+
+newmtl Bark01_SHD.003
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd obj_textures/bamboo-bark.JPG
+
+newmtl Branch01_SHD.003
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd obj_textures/bamboo-bark.JPG
+
+newmtl Leaf02_su_SHD.002
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd obj_textures/bamboo-leaf2.JPG
+
+newmtl Leaf03_su_SHD
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd obj_textures/bamboo-leaf2.JPG

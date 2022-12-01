@@ -40,7 +40,7 @@ class SquareModel(BaseModel):
         ], 'f')
         self.bind()
 
-class TreeModel(ComplexModel):
+class bambooModel(ComplexModel):
     def __init__(self, scene, M ):
         ComplexModel.__init__(self, scene=scene, M=M)
 

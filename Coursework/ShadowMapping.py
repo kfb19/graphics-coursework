@@ -138,7 +138,7 @@ class ShadowMap(Texture):
         # create the texture
         self.textureid = glGenTextures(1)
 
-        print('* Creating texture {} at ID {}'.format(self.name, self.textureid))
+        #print('* Creating texture {} at ID {}'.format(self.name, self.textureid))
 
         # initialise the texture memory
         self.bind()

@@ -52,11 +52,16 @@ class ExeterScene(Scene):
 
         floor = load_obj_file('models/floor.obj')
         self.floor = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=floor[0], shader=self.shaders, name='floor') 
+
         pool = load_obj_file('models/pool.obj')
         self.pool = DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-6.15,4], scale=0.35), mesh=pool[0], shader=self.shaders, name='pool') 
 
-        #self.pool = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=pool[0], shader=EnvironmentShader(map=self.environment), name='pool') 
+        cattail = load_obj_file('models/cattail.obj') 
+        self.cattail = DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-6.2,4], scale=2), mesh=cattail[0], shader=self.shaders, name='cattail')
 
+        #self.pool = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=pool[0], shader=EnvironmentShader(map=self.environment), name='pool') 
+        elephant = load_obj_file('models/elephant.obj')
+        self.elephant = DrawModelFromMesh(scene=self, M=poseMatrix(position=[2.5,-6,0], scale=0.35), mesh=elephant[0], shader=FlatShader())
 
         # draw a skybox for the horizon
         self.skybox = SkyBox(scene=self)
@@ -68,8 +73,7 @@ class ExeterScene(Scene):
         self.sphere = DrawModelFromMesh(scene=self, M=poseMatrix(), mesh=Sphere(), shader=EnvironmentShader(map=self.environment))
         #self.sphere = DrawModelFromMesh(scene=self, M=poseMatrix(), mesh=Sphere(), shader=FlatShader())
 
-        elephant = load_obj_file('models/elephant.obj')
-        self.elephant = DrawModelFromMesh(scene=self, M=poseMatrix(position=[2.5,-6,0], scale=0.35), mesh=elephant[0], shader=FlatShader())
+        
 
         # environment box for reflections
         #self.envbox = EnvironmentBox(scene=self)
@@ -94,6 +98,9 @@ class ExeterScene(Scene):
         for model in self.tiger:
             model.draw()
 
+        self.cattail.draw()
+        self.elephant.draw()
+
         model.draw()
 
     def draw_reflections(self):
@@ -110,6 +117,9 @@ class ExeterScene(Scene):
         # and for the box
         for model in self.tiger:
             model.draw()
+
+        self.cattail.draw()
+        self.elephant.draw()
 
         model.draw()
 
@@ -144,6 +154,7 @@ class ExeterScene(Scene):
             self.environment.update(self)
 
             self.elephant.draw()
+            self.cattail.draw()
 
             self.floor.draw()
             self.pool.draw()
@@ -171,6 +182,9 @@ class ExeterScene(Scene):
         for model in self.tiger:
             model.draw()
 
+        self.cattail.draw()
+        self.elephant.draw()
+
         self.show_light.draw()
 
         # once we are done drawing, we display the scene
@@ -190,63 +204,63 @@ class ExeterScene(Scene):
             if self.flattened_cube.visible:
                 self.flattened_cube.visible = False
             else:
-                print('--> showing cube map')
+                #print('--> showing cube map')
                 self.flattened_cube.visible = True
 
         if event.key == pygame.K_t:
             if self.show_texture.visible:
                 self.show_texture.visible = False
             else:
-                print('--> showing texture map')
+                #print('--> showing texture map')
                 self.show_texture.visible = True
 
         if event.key == pygame.K_s:
             if self.show_shadow_map.visible:
                 self.show_shadow_map.visible = False
             else:
-                print('--> showing shadow map')
+                #print('--> showing shadow map')
                 self.show_shadow_map.visible = True
 
         if event.key == pygame.K_1:
-            print('--> using Flat shading')
+            #print('--> using Flat shading')
             self.elephant.use_textures = True
             self.elephant.bind_shader('flat')
 
         if event.key == pygame.K_2:
-            print('--> using Phong shading')
+            #print('--> using Phong shading')
             self.elephant.use_textures = True
             self.elephant.bind_shader('phong')
 
         elif event.key == pygame.K_4:
-            print('--> using original texture')
+            #print('--> using original texture')
             self.elephant.shader.mode = 1
 
         elif event.key == pygame.K_6:
             self.elephant.mesh.material.alpha += 0.1
-            print('--> elephant alpha={}'.format(self.elephant.mesh.material.alpha))
+            #print('--> elephant alpha={}'.format(self.elephant.mesh.material.alpha))
             if self.elephant.mesh.material.alpha > 1.0:
                 self.elephant.mesh.material.alpha = 0.0
 
         elif event.key == pygame.K_7:
-            print('--> no face culling')
+            #print('--> no face culling')
             glDisable(GL_CULL_FACE)
 
         elif event.key == pygame.K_8:
-            print('--> glCullFace(GL_FRONT)')
+            #print('--> glCullFace(GL_FRONT)')
             glEnable(GL_CULL_FACE)
             glCullFace(GL_FRONT)
 
         elif event.key == pygame.K_9:
-            print('--> glCullFace(GL_BACK)')
+            #print('--> glCullFace(GL_BACK)')
             glEnable(GL_CULL_FACE)
             glCullFace(GL_BACK)
 
         elif event.key == pygame.K_BACKQUOTE:
             if glIsEnabled(GL_DEPTH_TEST):
-                print('--> disable GL_DEPTH_TEST')
+                #print('--> disable GL_DEPTH_TEST')
                 glDisable(GL_DEPTH_TEST)
             else:
-                print('--> enable GL_DEPTH_TEST')
+                #print('--> enable GL_DEPTH_TEST')
                 glEnable(GL_DEPTH_TEST)
 
 

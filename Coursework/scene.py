@@ -139,11 +139,11 @@ class Scene:
         # flag to switch wireframe rendering
         elif event.key == pygame.K_0:
             if self.wireframe:
-                print('--> Rendering using colour fill')
+                #print('--> Rendering using colour fill')
                 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
                 self.wireframe = False
             else:
-                print('--> Rendering using colour wireframe')
+                #print('--> Rendering using colour wireframe')
                 glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
                 self.wireframe = True
 

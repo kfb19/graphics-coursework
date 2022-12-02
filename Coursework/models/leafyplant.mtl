@@ -1,0 +1,24 @@
+# Blender 3.3.1 MTL File: 'None'
+# www.blender.org
+
+newmtl leaf_B.001
+Ns 32.000008
+Ka 1.000000 1.000000 1.000000
+Ks 0.350000 0.350000 0.350000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 2
+map_Kd obj_textures/phormium_t_leaf_2_1_diffuse_2.jpg
+map_d obj_textures/phormium_t_leaf_1_5_mask.jpg
+map_Bump obj_textures/phormium_t_leaf_1_4_normal.jpg
+
+newmtl leaf_C
+Ns 32.000008
+Ka 1.000000 1.000000 1.000000
+Ks 0.350000 0.350000 0.350000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 2
+map_Kd obj_textures/phormium_t_leaf_3_1_diffuse_1.jpg
+map_d obj_textures/phormium_t_leaf_1_5_mask.jpg
+map_Bump obj_textures/phormium_t_leaf_1_4_normal.jpg

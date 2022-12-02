@@ -41,14 +41,30 @@ class ExeterScene(Scene):
 
         self.bamboos = []
 
-        for counter in range(3):
+        for counter in range(10):
             bamboo = load_obj_file('models/bamboo.obj')
-            bamboo = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[(counter-4), -7, -4], scale=0.01), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='bamboo') for mesh in bamboo]
+            bamboo = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[(counter-5), -7, -4], scale=0.01), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='bamboo') for mesh in bamboo]
             self.bamboos.append(bamboo)
 
+        self.cattails = []
+
+        for counter in range(5):
+            cattail = load_obj_file('models/cattail.obj')
+            cattail = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[(counter+4), -6.2, -4], scale=0.6), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='cattail') for mesh in cattail]
+            self.cattails.append(cattail)
+
         
-        tiger = load_obj_file('models/tiger.obj') 
-        self.tiger = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[-3,-6.85,0], scale=0.35), mesh=mesh, shader=self.shaders, name='tiger') for mesh in tiger]
+
+        self.leafyplants = []
+        xpos = -3
+        zpos = 0
+        
+        for counter in range(10):
+            leafyplant = load_obj_file('models/leafyplant.obj') 
+            leafyplant = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[xpos,-5.8,zpos], scale=0.25), mesh=mesh, shader=self.shaders, name='leafyplant') for mesh in leafyplant]
+            self.leafyplants.append(leafyplant)
+            xpos += 1
+            zpos += 1
 
         floor = load_obj_file('models/floor.obj')
         self.floor = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=floor[0], shader=self.shaders, name='floor') 
@@ -56,12 +72,9 @@ class ExeterScene(Scene):
         pool = load_obj_file('models/pool.obj')
         self.pool = DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-6.15,4], scale=0.35), mesh=pool[0], shader=self.shaders, name='pool') 
 
-        cattail = load_obj_file('models/cattail.obj') 
-        self.cattail = DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-6.2,4], scale=2), mesh=cattail[0], shader=self.shaders, name='cattail')
-
         #self.pool = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=pool[0], shader=EnvironmentShader(map=self.environment), name='pool') 
         elephant = load_obj_file('models/elephant.obj')
-        self.elephant = DrawModelFromMesh(scene=self, M=poseMatrix(position=[2.5,-6,0], scale=0.35), mesh=elephant[0], shader=FlatShader())
+        self.elephant = DrawModelFromMesh(scene=self, M=poseMatrix(position=[2.5,-4,0], scale=0.35), mesh=elephant[0], shader=FlatShader())
 
         # draw a skybox for the horizon
         self.skybox = SkyBox(scene=self)
@@ -94,11 +107,15 @@ class ExeterScene(Scene):
             for model in bamboo:
                 model.draw()
 
-        # and for the box
-        for model in self.tiger:
-            model.draw()
+        for cattail in self.cattails:
+            for model in cattail:
+                model.draw()
 
-        self.cattail.draw()
+
+        for leafyplant in self.leafyplants:
+            for model in leafyplant:
+                model.draw()
+
         self.elephant.draw()
 
         model.draw()
@@ -114,11 +131,15 @@ class ExeterScene(Scene):
             for model in bamboo:
                 model.draw()
 
-        # and for the box
-        for model in self.tiger:
-            model.draw()
+        for cattail in self.cattails:
+            for model in cattail:
+                model.draw()
 
-        self.cattail.draw()
+
+        for leafyplant in self.leafyplants:
+            for model in leafyplant:
+                model.draw()
+
         self.elephant.draw()
 
         model.draw()
@@ -154,7 +175,9 @@ class ExeterScene(Scene):
             self.environment.update(self)
 
             self.elephant.draw()
-            self.cattail.draw()
+            for leafyplant in self.leafyplants:
+                for model in leafyplant:
+                    model.draw()
 
             self.floor.draw()
             self.pool.draw()
@@ -178,11 +201,14 @@ class ExeterScene(Scene):
             for model in bamboo:
                 model.draw()
 
-        # and for the box
-        for model in self.tiger:
-            model.draw()
+        for cattail in self.cattails:
+            for model in cattail:
+                model.draw()
 
-        self.cattail.draw()
+        for leafyplant in self.leafyplants:
+            for model in leafyplant:
+                model.draw()
+
         self.elephant.draw()
 
         self.show_light.draw()

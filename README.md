@@ -21,11 +21,6 @@ Use command line to switch to the correct directory containing all the files. Th
 python jungle-main.py
 ```
 
-## Need-to-know Commands 
-
-There are several commands you can use in the code: 
-- 
-
 ## Developer Documentation
 Files: 
 1. models - contains the .obj and .mtl files for all object models used in the scene. 
@@ -52,8 +47,29 @@ Files:
 20. texture.py - handles texture loading for texture mapping, from the file to wrapping it around the object and binding it, finally loading the texture in the buffer. 
 21. sphereModel.py - implements code for a sphere for the light source. 
 
+## Features 
 
-## Literature Review and Testing
+### Translation 
+
+Translation is implemented in the matutils section of the code. The translation matrix is give, and is referred to in jungle-scene.py as position. It has been used to position all of the objects, and you can manually use it by using 'w' and 's' to move the baby elephant forwards and backwards. 
+
+### Rotation 
+
+Rotation is implemented in the matutils section of the code. The rotation matrix is given, and is referred to in jungle-scene.py as orientation. It has been used on several of the trees, and you can manually use it on the frog by using 'a' and 'd' to rotate it anticlockwise and clockwise. 
+
+### Local Illumination 
+
+The main light source for this scene is the sun. Local illumination has been programmed using Phong shading. Phong describes how surfaces reflect light by combinging the roughness and shininess of surfaces, which are called diffuse reflection and specular reflection respectively. In the fragment_shader file, vectors are calculated for the shading, as are the light components and the attenuation function. These components are all combined to create the shader, using the normals to calculate the reference points. The normals are perpendicular (at a right angle) to each of the triangles that make up a mesh to show where light reflects best. This gives the shadows, reflections and shading as seen in the jungle scene. 
+
+### Texture Mapping 
+
+Texture mapping is the process of wrapping a 2D texture around a 3D object so it looks detailed and complex. This is used on all the objects in the code, including the skybox. Textures are defined in the textures folder. and are linked to objects using the .mtl file. In material.py, the details from the .mtl file are taken, and in texture.py, the ImageWrapper loads the tecture from the image file. The Texture class below then handles loading the textures and mapping them onto objects, by binding them with wrap parameters and shadow comparisons. This enables the textures to be wrapped as shown in the scene display. 
+
+### Environment Mapping 
+
+Environment mapping maps the distant envrionment as a texture. This includes the skybox, but more focus is on the pool, as pools are reflective. The pool reflects its environment, slightly distored due to the shape of the object. Simple calculations are done to find the light angles for this, to get a projection matrix. This envrionment map created is used on the pool just as a texture would be, and the scene is shown in the water too. 
+
+## Explanation Video
 
 A link to a video recording explaining the code can be found here: 
 

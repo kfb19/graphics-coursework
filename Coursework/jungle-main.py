@@ -41,13 +41,13 @@ class ExeterScene(Scene):
         for counter in range(10):
             angle = random.randint(0, 360)
             bamboo = load_obj_file('models/bamboo.obj')
-            bamboo = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[(counter-5), -7, -4], scale=0.015, orientation=angle), mesh=mesh, shader=PhongShader(shadow_map=self.shadows), name='bamboo') for mesh in bamboo]
+            bamboo = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[(counter-5), -7, -4], scale=0.015, orientation=angle), mesh=mesh, shader=self.shaders, name='bamboo') for mesh in bamboo]
             self.bamboos.append(bamboo)
 
         for counter in range(6):
             angle = random.randint(0, 360)
             bamboo = load_obj_file('models/bamboo.obj')
-            bamboo = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[(counter-5), -7, -3], scale=0.015, orientation=angle), mesh=mesh, shader=PhongShader(shadow_map=self.shadows), name='bamboo') for mesh in bamboo]
+            bamboo = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[(counter-5), -7, -3], scale=0.015, orientation=angle), mesh=mesh, shader=self.shaders, name='bamboo') for mesh in bamboo]
             self.bamboos.append(bamboo)  
 
         self.leafyplants = []
@@ -55,7 +55,7 @@ class ExeterScene(Scene):
         zpos = 0
 
         for i in range(5):
-            for j in range(7):
+            for j in range(5):
                 leafyplant = load_obj_file('models/leafyplant.obj') 
                 leafyplant = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[xpos,-5.8,zpos], scale=0.2), mesh=mesh, shader=self.shaders, name='leafyplant') for mesh in leafyplant]
                 self.leafyplants.append(leafyplant)
@@ -77,15 +77,10 @@ class ExeterScene(Scene):
 
         frog = load_obj_file('models/frog.obj')
         self.frog = DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-5,2.3], scale=3, orientation=0), mesh=frog[0], shader=self.shaders, name='frog') 
-
-        floor = load_obj_file('models/floor.obj')
-        self.floor = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=floor[0], shader=self.shaders, name='floor') 
-
-        
-
-        
+     
         elephant = load_obj_file('models/elephant.obj')
         self.elephant = DrawModelFromMesh(scene=self, M=poseMatrix(position=[2.5,-4,2], scale=0.5), mesh=elephant[0], shader=PhongShader())
+
         babyelephant = load_obj_file('models/elephant.obj')
         self.babyelephant = DrawModelFromMesh(scene=self, M=poseMatrix(position=[3.5,-4,2.5], scale=0.3), mesh=babyelephant[0], shader=PhongShader())
 
@@ -100,8 +95,9 @@ class ExeterScene(Scene):
         self.pool = DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-6.15,4], scale=0.35), mesh=pool[0], shader=self.shaders, name='pool')     
         self.pool = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=pool[0], shader=EnvironmentShader(map=self.environment), name='pool') 
 
+        floor = load_obj_file('models/floor.obj')
+        self.floor = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=floor[0], shader=self.shaders, name='floor') 
         # this object allows to visualise the flattened cube
-
         self.flattened_cube = FlattenCubeMap(scene=self, cube=self.environment)
         self.show_texture = ShowTexture(self, Texture('obj_textures/mossy-ground.png'))
 
@@ -141,10 +137,6 @@ class ExeterScene(Scene):
         for bamboo in self.bamboos:
             for model in bamboo:
                 model.draw()
-
-
-        
-
 
         for leafyplant in self.leafyplants:
             for model in leafyplant:
@@ -225,8 +217,6 @@ class ExeterScene(Scene):
             for model in bamboo:
                 model.draw()
 
-
-
         for leafyplant in self.leafyplants:
             for model in leafyplant:
                 model.draw()
@@ -280,6 +270,22 @@ class ExeterScene(Scene):
             #print('--> using Flat shading')
             self.elephant.use_textures = True
             self.elephant.bind_shader('flat')
+        
+        if event.key == pygame.K_a:
+            # Rotate frog anticlockwise
+            self.frog.rotationMatrixX(-10)
+
+        if event.key == pygame.K_d:
+            #Rotate frog clockwise
+            self.frog.rotationMatrixX(10)
+
+        if event.key == pygame.K_w:
+            #Move baby elephant forwards
+            self.babyelephant.translationMatrix([0.1, 0, 0])
+
+        if event.key == pygame.K_s:
+            #Move baby elephant backwards 
+            self.babyelephant.translationMatrix([0.1, 0, 0])
 
         if event.key == pygame.K_2:
             #print('--> using Phong shading')

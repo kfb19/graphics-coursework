@@ -97,7 +97,7 @@ class ExeterScene(Scene):
         pool = load_obj_file('models/pool.obj')
         self.pool = DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-6.15,4], scale=0.35), mesh=pool[0], shader=self.shaders, name='pool')     
         self.pool = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=pool[0], shader=EnvironmentShader(map=self.environment), name='pool') 
-        
+
         # this object allows to visualise the flattened cube
 
         self.flattened_cube = FlattenCubeMap(scene=self, cube=self.environment)

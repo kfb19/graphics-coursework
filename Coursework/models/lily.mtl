@@ -9,7 +9,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd obj_texture/lily2.png
+map_Kd obj_textures/lily2.png
 
 newmtl Material.002
 Ns 224.999985
@@ -19,7 +19,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd obj_texture/lily2.png
+map_Kd obj_textures/lily2.png
 
 newmtl Material.003
 Ns 224.999985
@@ -29,7 +29,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd obj_texture/lily1.png
+map_Kd obj_textures/lily1.png
 
 newmtl Material.004
 Ns 224.999985

@@ -14,6 +14,8 @@ from shaders import *
 
 from ShadowMapping import *
 
+import random
+
 from sphereModel import Sphere
 
 from skyBox import *
@@ -43,7 +45,12 @@ class ExeterScene(Scene):
 
         for counter in range(10):
             bamboo = load_obj_file('models/bamboo.obj')
-            bamboo = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[(counter-5), -7, -4], scale=0.01), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='bamboo') for mesh in bamboo]
+            bamboo = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[(counter-5), -7, -4], scale=0.015), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='bamboo') for mesh in bamboo]
+            self.bamboos.append(bamboo)
+
+        for counter in range(7):
+            bamboo = load_obj_file('models/bamboo.obj')
+            bamboo = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[-5, -7, (counter-4)], scale=0.015), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='bamboo') for mesh in bamboo]
             self.bamboos.append(bamboo)
 
         self.cattails = []
@@ -56,15 +63,32 @@ class ExeterScene(Scene):
         
 
         self.leafyplants = []
-        xpos = -3
+        xpos = -5
         zpos = 0
-        
-        for counter in range(10):
-            leafyplant = load_obj_file('models/leafyplant.obj') 
-            leafyplant = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[xpos,-5.8,zpos], scale=0.25), mesh=mesh, shader=self.shaders, name='leafyplant') for mesh in leafyplant]
-            self.leafyplants.append(leafyplant)
+
+        for i in range(5):
+            for j in range(2):
+                leafyplant = load_obj_file('models/leafyplant.obj') 
+                leafyplant = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[xpos,-5.8,zpos], scale=0.2), mesh=mesh, shader=self.shaders, name='leafyplant') for mesh in leafyplant]
+                self.leafyplants.append(leafyplant)
+                zpos += 2.5
             xpos += 1
-            zpos += 1
+            zpos = 0
+
+        self.lilies = []
+
+        for k in range(8):
+            zpos = random.randint(0, 5)
+            xpos = random.randint(-5, 2)
+            lily = load_obj_file('models/lily.obj') 
+            lily = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[xpos,-5.8,zpos], scale=0.2), mesh=mesh, shader=self.shaders, name='lily') for mesh in lily]
+            self.lilies.append(lily)
+
+        rock = load_obj_file('models/rock.obj')
+        self.rock = DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-6,2.3], scale=1), mesh=rock[0], shader=self.shaders, name='rock') 
+
+        frog = load_obj_file('models/frog.obj')
+        self.frog = DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-5,2.3], scale=3), mesh=frog[0], shader=self.shaders, name='frog') 
 
         floor = load_obj_file('models/floor.obj')
         self.floor = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=floor[0], shader=self.shaders, name='floor') 
@@ -74,7 +98,9 @@ class ExeterScene(Scene):
 
         #self.pool = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=pool[0], shader=EnvironmentShader(map=self.environment), name='pool') 
         elephant = load_obj_file('models/elephant.obj')
-        self.elephant = DrawModelFromMesh(scene=self, M=poseMatrix(position=[2.5,-4,0], scale=0.35), mesh=elephant[0], shader=FlatShader())
+        self.elephant = DrawModelFromMesh(scene=self, M=poseMatrix(position=[2.5,-4,2], scale=0.5), mesh=elephant[0], shader=FlatShader())
+        babyelephant = load_obj_file('models/elephant.obj')
+        self.babyelephant = DrawModelFromMesh(scene=self, M=poseMatrix(position=[3.5,-4,2.5], scale=0.3), mesh=babyelephant[0], shader=FlatShader())
 
         # draw a skybox for the horizon
         self.skybox = SkyBox(scene=self)
@@ -117,6 +143,9 @@ class ExeterScene(Scene):
                 model.draw()
 
         self.elephant.draw()
+        self.babyelephant.draw()
+        self.rock.draw()
+        self.frog.draw()
 
         model.draw()
 
@@ -134,6 +163,8 @@ class ExeterScene(Scene):
         for cattail in self.cattails:
             for model in cattail:
                 model.draw()
+        self.rock.draw()
+        self.frog.draw()
 
 
         for leafyplant in self.leafyplants:
@@ -141,6 +172,7 @@ class ExeterScene(Scene):
                 model.draw()
 
         self.elephant.draw()
+        self.babyelephant.draw()
 
         model.draw()
 
@@ -175,6 +207,10 @@ class ExeterScene(Scene):
             self.environment.update(self)
 
             self.elephant.draw()
+            self.babyelephant.draw()
+            self.rock.draw()
+            self.frog.draw()
+
             for leafyplant in self.leafyplants:
                 for model in leafyplant:
                     model.draw()
@@ -210,6 +246,9 @@ class ExeterScene(Scene):
                 model.draw()
 
         self.elephant.draw()
+        self.babyelephant.draw()
+        self.rock.draw()
+        self.frog.draw()
 
         self.show_light.draw()
 

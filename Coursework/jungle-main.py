@@ -63,20 +63,17 @@ class ExeterScene(Scene):
             xpos += 1
             zpos = 0
 
-        self.lilies = []
-
         for k in range(8):
             zpos = random.randint(0, 5)
             xpos = random.randint(-5, 2)
             lily = load_obj_file('models/lily.obj') 
-            lily = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[xpos,-5.8,zpos], scale=0.2), mesh=mesh, shader=self.shaders, name='lily') for mesh in lily]
-            self.lilies.append(lily)
+            self.lily = DrawModelFromMesh(scene=self, M=poseMatrix(position=[xpos,-5.8,zpos], scale=0.2), mesh=lily[0], shader=PhongShader())
 
         rock = load_obj_file('models/rock.obj')
-        self.rock = DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-6,2.3], scale=1), mesh=rock[0], shader=self.shaders, name='rock') 
+        self.rock = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-6,2.3], scale=1), mesh=mesh, shader=self.shaders, name='rock') for mesh in rock]
 
         frog = load_obj_file('models/frog.obj')
-        self.frog = DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-5,2.3], scale=3, orientation=0), mesh=frog[0], shader=self.shaders, name='frog') 
+        self.frog = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-5,2.3], scale=3, orientation=0), mesh=mesh, shader=self.shaders, name='frog') for mesh in frog]
      
         elephant = load_obj_file('models/elephant.obj')
         self.elephant = DrawModelFromMesh(scene=self, M=poseMatrix(position=[2.5,-4,2], scale=0.5), mesh=elephant[0], shader=PhongShader())
@@ -116,14 +113,15 @@ class ExeterScene(Scene):
             for model in leafyplant:
                 model.draw()
 
-        for lily in self.lilies:
-            for model in lily:
-                model.draw()
+        self.lily.draw()
 
         self.elephant.draw()
         self.babyelephant.draw()
-        self.rock.draw()
-        self.frog.draw()
+        for model in self.rock:
+                model.draw()
+
+        for model in self.frog:
+                model.draw()
 
         model.draw()
 
@@ -141,15 +139,17 @@ class ExeterScene(Scene):
         for leafyplant in self.leafyplants:
             for model in leafyplant:
                 model.draw()
-
-        for lily in self.lilies:
-            for model in lily:
+        
+        for model in self.rock:
                 model.draw()
+
+        for model in self.frog:
+                model.draw()
+
+        self.lily.draw()
 
         self.elephant.draw()
         self.babyelephant.draw()
-        self.rock.draw()
-        self.frog.draw()
         model.draw()
 
 
@@ -182,14 +182,15 @@ class ExeterScene(Scene):
 
             self.environment.update(self)
 
-            for lily in self.lilies:
-                for model in lily:
-                    model.draw()
+            self.lily.draw()
 
             self.elephant.draw()
             self.babyelephant.draw()
-            self.rock.draw()
-            self.frog.draw()
+            for model in self.rock:
+                model.draw()
+
+            for model in self.frog:
+                model.draw()
 
             for leafyplant in self.leafyplants:
                 for model in leafyplant:
@@ -221,14 +222,15 @@ class ExeterScene(Scene):
             for model in leafyplant:
                 model.draw()
 
-        for lily in self.lilies:
-            for model in lily:
-                model.draw()
+        self.lily.draw()
 
         self.elephant.draw()
         self.babyelephant.draw()
-        self.rock.draw()
-        self.frog.draw()
+        for model in self.rock:
+                model.draw()
+
+        for model in self.frog:
+                model.draw()
 
         self.show_light.draw()
 
@@ -259,7 +261,7 @@ class ExeterScene(Scene):
                 #print('--> showing texture map')
                 self.show_texture.visible = True
 
-        if event.key == pygame.K_s:
+        if event.key == pygame.K_z:
             if self.show_shadow_map.visible:
                 self.show_shadow_map.visible = False
             else:
@@ -273,19 +275,23 @@ class ExeterScene(Scene):
         
         if event.key == pygame.K_a:
             # Rotate frog anticlockwise
-            self.frog.rotationMatrixX(-10)
+            self.frog = np.matmul(rotationMatrixY(-10))
+            self.frog.draw()
 
         if event.key == pygame.K_d:
             #Rotate frog clockwise
-            self.frog.rotationMatrixX(10)
+            self.frog = np.matmul(rotationMatrixY(10))
+            self.frog.draw()
 
         if event.key == pygame.K_w:
             #Move baby elephant forwards
-            self.babyelephant.translationMatrix([0.1, 0, 0])
+            self.babyelephant.M = np.matmul(translationMatrix(0, 0, 1))
+            self.babyelephant.draw()
 
         if event.key == pygame.K_s:
             #Move baby elephant backwards 
-            self.babyelephant.translationMatrix([0.1, 0, 0])
+            self.babyelephant.M = np.matmul(translationMatrix(0, 0, -1))
+            self.babyelephant.draw()
 
         if event.key == pygame.K_2:
             #print('--> using Phong shading')

@@ -46,7 +46,6 @@ class ExeterScene(Scene):
             bamboo = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[(counter-4), -7, -4], scale=0.01), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='bamboo') for mesh in bamboo]
             self.bamboos.append(bamboo)
 
-        self.environment = EnvironmentMappingTexture(width=400, height=400)
         
         tiger = load_obj_file('models/tiger.obj') 
         self.tiger = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[-3,-6.85,0], scale=0.35), mesh=mesh, shader=self.shaders, name='tiger') for mesh in tiger]
@@ -54,7 +53,7 @@ class ExeterScene(Scene):
         floor = load_obj_file('models/floor.obj')
         self.floor = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=floor[0], shader=self.shaders, name='floor') 
         pool = load_obj_file('models/pool.obj')
-        self.pool = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=pool[0], shader=self.shaders, name='pool') 
+        self.pool = DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-6.15,4], scale=0.35), mesh=pool[0], shader=self.shaders, name='pool') 
 
         #self.pool = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=pool[0], shader=EnvironmentShader(map=self.environment), name='pool') 
 

@@ -318,7 +318,7 @@ class ExeterScene(Scene):
 
 if __name__ == '__main__':
     # initialises the scene object
-    # scene = Scene(shaders='gouraud')
+    # scene = Scene(shaders='phong')
     scene = ExeterScene()
 
     # starts drawing the scene

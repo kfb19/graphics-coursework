@@ -262,24 +262,32 @@ class ExeterScene(Scene):
         
         if event.key == pygame.K_a:
             # Rotate elephant anticlockwise
-            self.elephant.M = np.matmul(translationMatrix([0,0,0]), rotationMatrixY(-1))
+            start = self.elephant.M
+            end = np.matmul(start, rotationMatrixY(1))
+            self.elephant.M = end
             self.elephant.draw()
 
 
         if event.key == pygame.K_d:
             #Rotate elephant clockwise
-            self.elephant.M = np.matmul(translationMatrix([0,0,0]), rotationMatrixY(1))
+            start = self.elephant.M
+            end = np.matmul(start, rotationMatrixY(1))
+            self.elephant.M = end
             self.elephant.draw()
 
 
         if event.key == pygame.K_w:
             #Move baby elephant forwards
-            self.babyelephant.M = np.matmul(translationMatrix([3.5,-4,3.5]), rotationMatrixX(0))
+            start = self.babyelephant.M
+            end = np.matmul(start, translationMatrix([3.5,-4,3.5]))
+            self.babyelephant.M = end
             self.babyelephant.draw()
 
         if event.key == pygame.K_s:
             #Move baby elephant backwards 
-            self.babyelephant.M = np.matmul(translationMatrix([3.5,-4,1.5]), rotationMatrixX(0))
+            start = self.babyelephant.M
+            end = np.matmul(start, translationMatrix([3.5,-4,1.5]))
+            self.babyelephant.M = end
             self.babyelephant.draw()
 
         if event.key == pygame.K_2:

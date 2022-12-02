@@ -34,11 +34,6 @@ class ExeterScene(Scene):
         self.shadows = ShadowMap(light=self.light)
         self.show_shadow_map = ShowTexture(self, self.shadows)
 
-        #meshes = load_obj_file('models/scene.obj')
-        #self.add_models_list(
-        #    [DrawModelFromMesh(scene=self, M=np.matmul(translationMatrix([0,-1,0]),scaleMatrix([0.5,0.5,0.5])), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='scene') for mesh in meshes]
-        #)
-
         #bamboo random generation 
 
         self.bamboos = []
@@ -57,8 +52,8 @@ class ExeterScene(Scene):
         xpos = -5
         zpos = 0
 
-        for i in range(15):
-            for j in range(3):
+        for i in range(5):
+            for j in range(15):
                 leafyplant = load_obj_file('models/leafyplant.obj') 
                 leafyplant = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[xpos,-5.8,zpos], scale=0.2), mesh=mesh, shader=self.shaders, name='leafyplant') for mesh in leafyplant]
                 self.leafyplants.append(leafyplant)
@@ -84,10 +79,9 @@ class ExeterScene(Scene):
         floor = load_obj_file('models/floor.obj')
         self.floor = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=floor[0], shader=self.shaders, name='floor') 
 
-        pool = load_obj_file('models/pool.obj')
-        self.pool = DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-6.15,4], scale=0.35), mesh=pool[0], shader=self.shaders, name='pool') 
+        
 
-        #self.pool = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=pool[0], shader=EnvironmentShader(map=self.environment), name='pool') 
+        
         elephant = load_obj_file('models/elephant.obj')
         self.elephant = DrawModelFromMesh(scene=self, M=poseMatrix(position=[2.5,-4,2], scale=0.5), mesh=elephant[0], shader=FlatShader())
         babyelephant = load_obj_file('models/elephant.obj')
@@ -100,20 +94,14 @@ class ExeterScene(Scene):
 
         self.environment = EnvironmentMappingTexture(width=400, height=400)
 
-        self.sphere = DrawModelFromMesh(scene=self, M=poseMatrix(), mesh=Sphere(), shader=EnvironmentShader(map=self.environment))
-        #self.sphere = DrawModelFromMesh(scene=self, M=poseMatrix(), mesh=Sphere(), shader=FlatShader())
-
+        pool = load_obj_file('models/pool.obj')
+        self.pool = DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-6.15,4], scale=0.35), mesh=pool[0], shader=self.shaders, name='pool')     
+        self.pool = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=pool[0], shader=EnvironmentShader(map=self.environment), name='pool') 
         
-
-        # environment box for reflections
-        #self.envbox = EnvironmentBox(scene=self)
-
         # this object allows to visualise the flattened cube
 
-        #self.flattened_cube = FlattenCubeMap(scene=self, cube=CubeMap(name='skybox/ame_ash'))
         self.flattened_cube = FlattenCubeMap(scene=self, cube=self.environment)
 
-        self.show_texture = ShowTexture(self, Texture('lena.bmp'))
 
     def draw_shadow_map(self):
         # first we need to clear the scene, we also clear the depth buffer to handle occlusions

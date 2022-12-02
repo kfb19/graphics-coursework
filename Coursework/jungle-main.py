@@ -55,7 +55,7 @@ class ExeterScene(Scene):
         zpos = 0
 
         for i in range(5):
-            for j in range(5):
+            for j in range(4):
                 leafyplant = load_obj_file('models/leafyplant.obj') 
                 leafyplant = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[xpos,-5.8,zpos], scale=0.2), mesh=mesh, shader=self.shaders, name='leafyplant') for mesh in leafyplant]
                 self.leafyplants.append(leafyplant)
@@ -63,17 +63,11 @@ class ExeterScene(Scene):
             xpos += 1
             zpos = 0
 
-        for k in range(8):
-            zpos = random.randint(0, 5)
-            xpos = random.randint(-5, 2)
-            lily = load_obj_file('models/lily.obj') 
-            self.lily = DrawModelFromMesh(scene=self, M=poseMatrix(position=[xpos,-5.8,zpos], scale=0.2), mesh=lily[0], shader=PhongShader())
-
         rock = load_obj_file('models/rock.obj')
-        self.rock = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-6,2.3], scale=1), mesh=mesh, shader=self.shaders, name='rock') for mesh in rock]
+        self.rock = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-6,3], scale=0.015), mesh=mesh, shader=self.shaders, name='rock') for mesh in rock]
 
         frog = load_obj_file('models/frog.obj')
-        self.frog = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-5,2.3], scale=3, orientation=0), mesh=mesh, shader=self.shaders, name='frog') for mesh in frog]
+        self.frog = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[4.5,-5,3], scale=5), mesh=mesh, shader=self.shaders, name='frog') for mesh in frog]
      
         elephant = load_obj_file('models/elephant.obj')
         self.elephant = DrawModelFromMesh(scene=self, M=poseMatrix(position=[2.5,-4,2], scale=0.5), mesh=elephant[0], shader=PhongShader())
@@ -88,15 +82,14 @@ class ExeterScene(Scene):
 
         self.environment = EnvironmentMappingTexture(width=400, height=400)
 
-        pool = load_obj_file('models/pool.obj')
-        self.pool = DrawModelFromMesh(scene=self, M=poseMatrix(position=[4,-6.15,4], scale=0.35), mesh=pool[0], shader=self.shaders, name='pool')     
-        self.pool = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=pool[0], shader=EnvironmentShader(map=self.environment), name='pool') 
+        pool = load_obj_file('models/pool.obj')    
+        self.pool = DrawModelFromMesh(scene=self, M=translationMatrix([4,-6,4]), mesh=pool[0], shader=EnvironmentShader(map=self.environment), name='pool') 
 
         floor = load_obj_file('models/floor.obj')
         self.floor = DrawModelFromMesh(scene=self, M=translationMatrix([0,-7,0]), mesh=floor[0], shader=self.shaders, name='floor') 
         # this object allows to visualise the flattened cube
         self.flattened_cube = FlattenCubeMap(scene=self, cube=self.environment)
-        self.show_texture = ShowTexture(self, Texture('obj_textures/mossy-ground.png'))
+        self.show_texture = ShowTexture(self, Texture('obj_textures/mossy-ground.jpg'))
 
 
     def draw_shadow_map(self):
@@ -113,7 +106,6 @@ class ExeterScene(Scene):
             for model in leafyplant:
                 model.draw()
 
-        self.lily.draw()
 
         self.elephant.draw()
         self.babyelephant.draw()
@@ -145,8 +137,6 @@ class ExeterScene(Scene):
 
         for model in self.frog:
                 model.draw()
-
-        self.lily.draw()
 
         self.elephant.draw()
         self.babyelephant.draw()
@@ -182,7 +172,6 @@ class ExeterScene(Scene):
 
             self.environment.update(self)
 
-            self.lily.draw()
 
             self.elephant.draw()
             self.babyelephant.draw()
@@ -221,8 +210,6 @@ class ExeterScene(Scene):
         for leafyplant in self.leafyplants:
             for model in leafyplant:
                 model.draw()
-
-        self.lily.draw()
 
         self.elephant.draw()
         self.babyelephant.draw()
@@ -275,22 +262,26 @@ class ExeterScene(Scene):
         
         if event.key == pygame.K_a:
             # Rotate frog anticlockwise
-            self.frog = np.matmul(rotationMatrixY(-10))
-            self.frog.draw()
+            self.frog = np.matmul(translationMatrix([0,0,0]), rotationMatrixY(-1))
+            for model in self.frog:
+                model.draw()
+
 
         if event.key == pygame.K_d:
             #Rotate frog clockwise
-            self.frog = np.matmul(rotationMatrixY(10))
-            self.frog.draw()
+            self.frog = np.matmul(translationMatrix([0,0,0]), rotationMatrixY(1))
+            for model in self.frog:
+                model.draw()
+
 
         if event.key == pygame.K_w:
             #Move baby elephant forwards
-            self.babyelephant.M = np.matmul(translationMatrix(0, 0, 1))
+            self.babyelephant.M = np.matmul(translationMatrix([3.5,-4,3.5]), rotationMatrixX(0))
             self.babyelephant.draw()
 
         if event.key == pygame.K_s:
             #Move baby elephant backwards 
-            self.babyelephant.M = np.matmul(translationMatrix(0, 0, -1))
+            self.babyelephant.M = np.matmul(translationMatrix([3.5,-4,1.5]), rotationMatrixX(0))
             self.babyelephant.draw()
 
         if event.key == pygame.K_2:

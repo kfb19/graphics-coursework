@@ -148,8 +148,8 @@ class CubeMap(Texture):
             GL_TEXTURE_CUBE_MAP_POSITIVE_Z: 'posz.jpg', 
             GL_TEXTURE_CUBE_MAP_POSITIVE_X: 'posx.jpg',
             GL_TEXTURE_CUBE_MAP_NEGATIVE_Z: 'negz.jpg', 
-            GL_TEXTURE_CUBE_MAP_POSITIVE_Y: 'posy.jpg', 
-            GL_TEXTURE_CUBE_MAP_NEGATIVE_Y: 'negy.jpg', 
+            GL_TEXTURE_CUBE_MAP_POSITIVE_Y: 'negy.jpg', 
+            GL_TEXTURE_CUBE_MAP_NEGATIVE_Y: 'posy.jpg', 
         }
 
         # generate the texture.

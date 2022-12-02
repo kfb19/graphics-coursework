@@ -15,9 +15,10 @@ This Python program renders a 3D jungle scene, with the use of [OpenGL](https://
 
 ## Getting Started 
 
-Use command line to switch to the correct directory containing all the files. Then run the following Python command to run the scene. 
+First run the first command shown below to install thr requirements. Then use command line to switch to the correct directory (coursework) containing all the files. Then run the following Python command to run the scene. Be aware that it can take up to 10 minutes to run on a slow computer due to large model sizes. 
 
 ```bash
+pip install -r requirements.txt
 python jungle-main.py
 ```
 
@@ -55,7 +56,7 @@ Translation is implemented in the matutils section of the code. The translation 
 
 ### Rotation 
 
-Rotation is implemented in the matutils section of the code. The rotation matrix is given, and is referred to in jungle-scene.py as orientation. It has been used on several of the trees, and you can manually use it on the frog by using 'a' and 'd' to rotate it anticlockwise and clockwise. 
+Rotation is implemented in the matutils section of the code. The rotation matrix is given, and is referred to in jungle-scene.py as orientation. It has been used on several of the trees, and you can manually use it on the big elephant by using 'a' and 'd' to rotate it anticlockwise and clockwise. 
 
 ### Local Illumination 
 
@@ -71,7 +72,7 @@ Environment mapping maps the distant envrionment as a texture. This includes the
 
 ## Explanation Video
 
-A link to a video recording explaining the code can be found here: 
+A link to a video recording explaining the code can be found here: https://youtu.be/M-pbVW7ooTU
 
 ## Authors 
 

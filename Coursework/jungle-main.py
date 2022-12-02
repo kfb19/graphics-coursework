@@ -261,17 +261,15 @@ class ExeterScene(Scene):
             self.elephant.bind_shader('flat')
         
         if event.key == pygame.K_a:
-            # Rotate frog anticlockwise
-            self.frog = np.matmul(translationMatrix([0,0,0]), rotationMatrixY(-1))
-            for model in self.frog:
-                model.draw()
+            # Rotate elephant anticlockwise
+            self.elephant.M = np.matmul(translationMatrix([0,0,0]), rotationMatrixY(-1))
+            self.elephant.draw()
 
 
         if event.key == pygame.K_d:
-            #Rotate frog clockwise
-            self.frog = np.matmul(translationMatrix([0,0,0]), rotationMatrixY(1))
-            for model in self.frog:
-                model.draw()
+            #Rotate elephant clockwise
+            self.elephant.M = np.matmul(translationMatrix([0,0,0]), rotationMatrixY(1))
+            self.elephant.draw()
 
 
         if event.key == pygame.K_w:

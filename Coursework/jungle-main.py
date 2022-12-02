@@ -101,6 +101,7 @@ class ExeterScene(Scene):
         # this object allows to visualise the flattened cube
 
         self.flattened_cube = FlattenCubeMap(scene=self, cube=self.environment)
+        self.show_texture = ShowTexture(self, Texture('obj_textures/mossy-ground.png'))
 
 
     def draw_shadow_map(self):

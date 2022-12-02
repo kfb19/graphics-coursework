@@ -17,7 +17,7 @@ from lightSource import LightSource
 
 class Scene:
     '''
-    This is the main class for adrawing an OpenGL scene using the PyGame library
+    This is the main class for drawing an OpenGL scene using the PyGame library
     '''
     def __init__(self, width=800, height=600, shaders=None):
         '''
@@ -45,7 +45,7 @@ class Scene:
         # depending on your model, or your projection matrix, the winding order may be inverted,
         # Typically, you see the far side of the model instead of the front one
         # uncommenting the following line should provide an easy fix.
-        #glCullFace(GL_FRONT)
+     
 
         # enable the vertex array capability
         glEnableClientState(GL_VERTEX_ARRAY)
@@ -162,9 +162,7 @@ class Scene:
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mods = pygame.key.get_mods()
-                if event.button == 4:
-                    #pass
-                    #TODO: WS2
+                if event.button == 4:                    
                     if mods & pygame.KMOD_CTRL:
                         self.light.position *= 1.1
                         self.light.update()

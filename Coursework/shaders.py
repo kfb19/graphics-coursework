@@ -7,10 +7,6 @@ import numpy as np
 
 
 class Uniform:
-    '''
-    We create a simple class to handle uniforms, this is not necessary,
-    but allow to put all relevant code in one place
-    '''
     def __init__(self, name, value=None):
         '''
         Initialise the uniform parameter
@@ -27,8 +23,8 @@ class Uniform:
         :param program: the GLSL program where the uniform is used
         '''
         self.location = glGetUniformLocation(program=program, name=self.name)
-        #if self.location == -1:
-            #print('(E) Warning, no uniform {}'.format(self.name))
+        if self.location == -1:
+            print('(E) Warning, no uniform {}'.format(self.name))
 
     def bind_matrix(self, M=None, number=1, transpose=True):
         '''
@@ -44,8 +40,8 @@ class Uniform:
             glUniformMatrix4fv(self.location, number, transpose, self.value)
         elif self.value.shape[0] == 3 and self.value.shape[1] == 3:
             glUniformMatrix3fv(self.location, number, transpose, self.value)
-        #else:
-            #print('(E) Error: Trying to bind as uniform a matrix of shape {}'.format(self.value.shape))
+        else:
+            print('(E) Error: Trying to bind as uniform a matrix of shape {}'.format(self.value.shape))
 
     def bind(self,value):
         if value is not None:
@@ -60,8 +56,8 @@ class Uniform:
                 self.bind_vector()
             elif self.value.ndim==2:
                 self.bind_matrix()
-       # else:
-            #print('Wrong value bound: {}'.format(type(self.value)))
+        else:
+            print('Wrong value bound: {}'.format(type(self.value)))
 
     def bind_int(self, value=None):
         if value is not None:
@@ -82,8 +78,8 @@ class Uniform:
             glUniform3fv(self.location, 1, value)
         elif value.shape[0] == 4:
             glUniform4fv(self.location, 1, value)
-       # else:
-            #print('(E) Error in Uniform.bind_vector(): Vector should be of dimension 2,3 or 4, found {}'.format(value.shape[0]))
+        else:
+            print('(E) Error in Uniform.bind_vector(): Vector should be of dimension 2,3 or 4, found {}'.format(value.shape[0]))
 
     def set(self, value):
         '''
@@ -105,7 +101,7 @@ class BaseShaderProgram:
         '''
 
         self.name = name
-        #print('Creating shader program: {}'.format(name) )
+        print('Creating shader program: {}'.format(name) )
 
         if name is not None:
             vertex_shader = 'shaders/{}/vertex_shader.glsl'.format(name)
@@ -125,10 +121,10 @@ class BaseShaderProgram:
                 }
             '''
         else:
-            #print('Load vertex shader from file: {}'.format(vertex_shader))
+            print('Load vertex shader from file: {}'.format(vertex_shader))
             with open(vertex_shader, 'r') as file:
                 self.vertex_shader_source = file.read()
-            # #print(self.vertex_shader_source)
+        
 
         # load the fragment shader GLSL code
         if fragment_shader is None:
@@ -139,10 +135,10 @@ class BaseShaderProgram:
                 }
             '''
         else:
-            #print('Load fragment shader from file: {}'.format(fragment_shader))
+            print('Load fragment shader from file: {}'.format(fragment_shader))
             with open(fragment_shader, 'r') as file:
                 self.fragment_shader_source = file.read()
-            # #print(self.fragment_shader_source)
+            
 
         # in order to simplify extension of the class in the future, we start storing uniforms in a dictionary.
         self.uniforms = {
@@ -158,18 +154,15 @@ class BaseShaderProgram:
         Call this function to compile the GLSL codes for both shaders.
         :return:
         '''
-        #print('Compiling GLSL shaders [{}]...'.format(self.name))
+        print('Compiling GLSL shaders [{}]...'.format(self.name))
         try:
             self.program = glCreateProgram()
             glAttachShader(self.program, shaders.compileShader(self.vertex_shader_source, shaders.GL_VERTEX_SHADER))
             glAttachShader(self.program, shaders.compileShader(self.fragment_shader_source, shaders.GL_FRAGMENT_SHADER))
 
-            #self.program = shaders.compileProgram(
-            #    shaders.compileShader(self.vertex_shader_source, shaders.GL_VERTEX_SHADER),
-            #    shaders.compileShader(self.fragment_shader_source, shaders.GL_FRAGMENT_SHADER)
-            #)
+     
         except RuntimeError as error:
-            #print('(E) An error occured while compiling {} shader:\n {}\n... forwarding exception...'.format(self.name, error)),
+            print('(E) An error occured while compiling {} shader:\n {}\n... forwarding exception...'.format(self.name, error)),
             raise error
 
         self.bindAttributes(attributes)
@@ -187,7 +180,7 @@ class BaseShaderProgram:
         # bind all shader attributes to the correct locations in the VAO
         for name, location in attributes.items():
             glBindAttribLocation(self.program, location, name)
-            #print('Binding attribute {} to location {}'.format(name, location))
+            print('Binding attribute {} to location {}'.format(name, location))
 
     def bind(self, model, M):
         '''

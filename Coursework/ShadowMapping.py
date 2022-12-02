@@ -119,9 +119,6 @@ class ShowTexture(DrawModelFromMesh):
 class ShadowMap(Texture):
     def __init__(self, light=None, width=1000, height=1000):
 
-        # In order to call parent constructor I would need to change it to allow for an empty texture object (poor design)
-        # Texture.__init__(self, "shadow", img=None, wrap=GL_CLAMP_TO_EDGE, sample=GL_NEAREST, format=GL_DEPTH_COMPONENT, type=GL_FLOAT, target=GL_TEXTURE_2D)
-
         # we save the light source
         self.light = light
 
@@ -138,7 +135,7 @@ class ShadowMap(Texture):
         # create the texture
         self.textureid = glGenTextures(1)
 
-        #print('* Creating texture {} at ID {}'.format(self.name, self.textureid))
+        print('* Creating texture {} at ID {}'.format(self.name, self.textureid))
 
         # initialise the texture memory
         self.bind()
@@ -155,7 +152,6 @@ class ShadowMap(Texture):
 
     def render(self, scene, target=[0, 0, 0]):
         # backup the view matrix and replace with the new one
-        #self.P = scene.P
         if self.light is not None:
             self.P = frustumMatrix(-1.0, +1.0, -1.0, +1.0, 1.0, 20.0)
             self.V = lookAt(np.array(self.light.position), np.array(target))

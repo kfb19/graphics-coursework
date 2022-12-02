@@ -26,19 +26,19 @@ def process_line(line):
 	elif fields[0] == 'v':
 		label = 'vertex'
 		if len(fields) != 4:
-			#print('(E) Error, 3 entries expected for vertex')
+			print('(E) Error, 3 entries expected for vertex')
 			return None
 
 	elif fields[0] == 'vt':
 		label = 'vertex texture'
 		if len(fields) != 3:
-			#print('(E) Error, 2 entries expected for vertex texture')
+			print('(E) Error, 2 entries expected for vertex texture')
 			return None
 
 	elif fields[0] == 'mtllib':
 		label = 'material library'
 		if len(fields) != 2:
-			#print('(E) Error, material library file name missing')
+			print('(E) Error, material library file name missing')
 			return None
 		else:
 			return (label, fields[1])
@@ -46,7 +46,7 @@ def process_line(line):
 	elif fields[0] == 'usemtl':
 		label = 'material'
 		if len(fields) != 2:
-			#print('(E) Error, material file name missing')
+			print('(E) Error, material file name missing')
 			return None
 		else:
 			return (label, fields[1])
@@ -59,7 +59,7 @@ def process_line(line):
 	elif fields[0] == 'f':
 		label = 'face'
 		if len(fields) != 4 and len(fields) != 5:
-			#print('(E) Error, 3 or 4 entries expected for faces\n{}'.format(line))
+			print('(E) Error, 3 or 4 entries expected for faces\n{}'.format(line))
 			return None
 
 
@@ -82,7 +82,7 @@ def load_material_library(file_name):
 	library = MaterialLibrary()
 	material = None
 
-	#print('-- Loading material library {}'.format(file_name))
+	print('-- Loading material library {}'.format(file_name))
 
 	mtlfile = open(file_name)
 	for line in mtlfile:
@@ -93,7 +93,7 @@ def load_material_library(file_name):
 					library.add_material(material)
 
 				material = Material(fields[1])
-				#print('Found material definition: {}'.format(material.name))
+				print('Found material definition: {}'.format(material.name))
 			elif fields[0] == 'Ka':
 				material.Ka = np.array(fields[1:], 'f')
 			elif fields[0] == 'Kd':
@@ -113,7 +113,7 @@ def load_material_library(file_name):
 
 	library.add_material(material)
 
-	#print('- Done, loaded {} materials'.format(len(library.materials)))
+	print('- Done, loaded {} materials'.format(len(library.materials)))
 
 	return library
 
@@ -123,7 +123,7 @@ def load_obj_file(file_name):
 	Function for loading a Blender3D object file. minimalistic, and partial,
 	but sufficient for this course. You do not really need to worry about it.
 	'''
-	#print('Loading mesh(es) from Blender file: {}'.format(file_name))
+	print('Loading mesh(es) from Blender file: {}'.format(file_name))
 
 	vlist = []	# list of vertices
 	tlist = []	# list of texture vectors

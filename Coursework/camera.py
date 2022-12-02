@@ -5,7 +5,6 @@ from matutils import *
 class Camera:
     '''
     Base class for handling the camera.
-    TODO WS2: Implement this class to allow moving the mouse
     '''
 
     def __init__(self):
@@ -23,7 +22,6 @@ class Camera:
         then, we rotate the coordinate system according to phi and psi angles
         finally, we move the camera to the set distance from the point.
         '''
-        # TODO WS1
         # calculate the translation matrix for the view center (the point we look at)
         T0 = translationMatrix(self.center)
 

@@ -44,8 +44,6 @@ class BaseModel:
 
         # mesh data
         self.mesh = mesh
-        if self.mesh.textures == 1:
-            self.mesh.textures.append(Texture('lena.bmp'))
 
         self.name = self.mesh.name
         #self.vertices = None

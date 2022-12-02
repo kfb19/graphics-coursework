@@ -47,7 +47,6 @@ class Mesh:
 
         if material.texture is not None:
             self.textures.append(Texture(material.texture))
-            #self.textures.append(Texture('lena.bmp'))
 
 
     def calculate_normals(self):

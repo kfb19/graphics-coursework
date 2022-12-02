@@ -48,26 +48,17 @@ class ExeterScene(Scene):
             bamboo = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[(counter-5), -7, -4], scale=0.015), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='bamboo') for mesh in bamboo]
             self.bamboos.append(bamboo)
 
-        for counter in range(7):
+        for counter in range(6):
             bamboo = load_obj_file('models/bamboo.obj')
-            bamboo = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[-5, -7, (counter-4)], scale=0.015), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='bamboo') for mesh in bamboo]
-            self.bamboos.append(bamboo)
-
-        self.cattails = []
-
-        for counter in range(5):
-            cattail = load_obj_file('models/cattail.obj')
-            cattail = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[(counter+4), -6.2, -4], scale=0.6), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='cattail') for mesh in cattail]
-            self.cattails.append(cattail)
-
-        
+            bamboo = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[(counter-5), -7, -3], scale=0.015), mesh=mesh, shader=ShadowMappingShader(shadow_map=self.shadows), name='bamboo') for mesh in bamboo]
+            self.bamboos.append(bamboo)  
 
         self.leafyplants = []
         xpos = -5
         zpos = 0
 
-        for i in range(5):
-            for j in range(2):
+        for i in range(15):
+            for j in range(3):
                 leafyplant = load_obj_file('models/leafyplant.obj') 
                 leafyplant = [DrawModelFromMesh(scene=self, M=poseMatrix(position=[xpos,-5.8,zpos], scale=0.2), mesh=mesh, shader=self.shaders, name='leafyplant') for mesh in leafyplant]
                 self.leafyplants.append(leafyplant)
@@ -133,13 +124,13 @@ class ExeterScene(Scene):
             for model in bamboo:
                 model.draw()
 
-        for cattail in self.cattails:
-            for model in cattail:
-                model.draw()
-
 
         for leafyplant in self.leafyplants:
             for model in leafyplant:
+                model.draw()
+
+        for lily in self.lilies:
+            for model in lily:
                 model.draw()
 
         self.elephant.draw()
@@ -160,20 +151,22 @@ class ExeterScene(Scene):
             for model in bamboo:
                 model.draw()
 
-        for cattail in self.cattails:
-            for model in cattail:
-                model.draw()
-        self.rock.draw()
-        self.frog.draw()
+
+        
 
 
         for leafyplant in self.leafyplants:
             for model in leafyplant:
                 model.draw()
 
+        for lily in self.lilies:
+            for model in lily:
+                model.draw()
+
         self.elephant.draw()
         self.babyelephant.draw()
-
+        self.rock.draw()
+        self.frog.draw()
         model.draw()
 
 
@@ -206,6 +199,10 @@ class ExeterScene(Scene):
 
             self.environment.update(self)
 
+            for lily in self.lilies:
+                for model in lily:
+                    model.draw()
+
             self.elephant.draw()
             self.babyelephant.draw()
             self.rock.draw()
@@ -237,12 +234,14 @@ class ExeterScene(Scene):
             for model in bamboo:
                 model.draw()
 
-        for cattail in self.cattails:
-            for model in cattail:
-                model.draw()
+
 
         for leafyplant in self.leafyplants:
             for model in leafyplant:
+                model.draw()
+
+        for lily in self.lilies:
+            for model in lily:
                 model.draw()
 
         self.elephant.draw()
